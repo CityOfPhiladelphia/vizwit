@@ -3,21 +3,17 @@ var _ = require('underscore')
 var Promise = require('bluebird')
 var BaseProvider = require('./baseprovider')
 var squel = require('squel')
-var CartoDBFields = require('./cartodb-fields')
+var CartoFields = require('./carto-fields')
 
 module.exports = BaseProvider.extend({
   initialize: function (models, options) {
     BaseProvider.prototype.initialize.apply(this, arguments)
   },
-  fieldsCollection: CartoDBFields,
+  fieldsCollection: CartoFields,
   url: function () {
     var filters = this.config.baseFilters.concat(this.getFilters())
     var query = squel.select()
     query.from(this.config.dataset)
-
-    if (this.config.leftJoin) {
-      query.left_join(this.config.leftJoin)
-    }
 
     // Aggregate & group by
     if (this.config.valueField || this.config.aggregateFunction || this.config.groupBy) {
@@ -40,7 +36,7 @@ module.exports = BaseProvider.extend({
 
         // Order by (only if there will be multiple results)
         if (this.config.order) {
-          query.order(this.config.order)
+          query.order(this.config.order, '')
         } else {
           query.order('value', false)
         }
@@ -50,7 +46,7 @@ module.exports = BaseProvider.extend({
       if (this.config.offset) query.offset(this.config.offset)
 
       // Order by
-      query.order(this.config.order || 'cartodb_id')
+      query.order(this.config.order || 'cartodb_id', '')
     }
 
     // Where
@@ -80,7 +76,19 @@ module.exports = BaseProvider.extend({
   },
 
   exportUrl: function () {
-    return this.url() + '&format=csv'
+    // Save current value
+    var oldLimit = this.config.limit
+
+    // Change value in order to get the URL
+    this.config.limit = null // defaults to 5000
+
+    // Get the URL
+    var url = this.url() + '&format=csv'
+
+    // Set the value back
+    this.config.limit = oldLimit
+
+    return url
   },
 
   parse: function (response) {
