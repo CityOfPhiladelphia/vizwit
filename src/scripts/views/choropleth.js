@@ -120,9 +120,11 @@ module.exports = Card.extend({
     var layer = e.target
 
     // Construct popup HTML (TODO: Move to template)
+    var label = layer.feature.properties[this.boundaries.label]
+    var total = layer.feature.properties.value || 0 // default to 0
     var popupContent = '<div class="marker-title">' +
-			'<h2>' + layer.feature.properties[this.boundaries.label] + '</h2>' +
-			'Total: ' + layer.feature.properties.value.toLocaleString()
+			'<h2>' + label + '</h2>' +
+			'Total: ' + total.toLocaleString()
     if (layer.feature.properties.filteredValue !== undefined) {
       popupContent += '<br>Filtered Amount: ' + layer.feature.properties.filteredValue.toLocaleString()
     }
