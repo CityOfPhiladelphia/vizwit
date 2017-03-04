@@ -27,7 +27,8 @@ gulp.task('scripts', function () {
   return mergeStream(
     scripts(dir.dev + 'scripts/vizwit-loader.js', 'vizwit-loader.js'),
     scripts(dir.dev + 'scripts/vizwit-embed.js', 'vizwit-embed.js'),
-    scripts(dir.dev + 'scripts/vizwit-editor.js', 'vizwit-editor.js')
+    scripts(dir.dev + 'scripts/vizwit-editor.js', 'vizwit-editor.js'),
+    scripts(dir.dev + 'scripts/vizwit-onpage.js', 'vizwit-onpage.js')
   )
 })
 
@@ -35,7 +36,8 @@ gulp.task('scripts-watch', function () {
   return mergeStream(
     scripts(dir.dev + 'scripts/vizwit-loader.js', 'vizwit-loader.js', true),
     scripts(dir.dev + 'scripts/vizwit-embed.js', 'vizwit-embed.js', true),
-    scripts(dir.dev + 'scripts/vizwit-editor.js', 'vizwit-editor.js', true)
+    scripts(dir.dev + 'scripts/vizwit-editor.js', 'vizwit-editor.js', true),
+    scripts(dir.dev + 'scripts/vizwit-onpage.js', 'vizwit-onpage.js', true)
   )
 })
 
