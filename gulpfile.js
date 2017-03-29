@@ -1,6 +1,7 @@
 var gulp = require('gulp')
 var _ = require('underscore')
 var browserify = require('browserify')
+var babelify = require('babelify')
 var watchify = require('watchify')
 var source = require('vinyl-source-stream')
 var buffer = require('vinyl-buffer')
@@ -73,6 +74,7 @@ function scripts (src, dest, watch) {
   if (watch) bundleOpts.debug = true
 
   var bundle = browserify(src, bundleOpts)
+  bundle.transform(babelify)
 
   if (watch) {
     bundle = watchify(bundle)
