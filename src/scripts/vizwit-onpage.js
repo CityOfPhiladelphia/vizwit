@@ -24,7 +24,7 @@ function render (containerEl, config) {
 
     cards.forEach(function (config) {
       var cardEl = $('<div class="col-md-' + cardSize + '"></div>')
-      cardEl.css('min-height', '230px')
+      cardEl.css('min-height', '240px')
       rowEl.append(cardEl)
 
       vizwit.init(cardEl, config, {
