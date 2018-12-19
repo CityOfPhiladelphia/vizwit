@@ -9,15 +9,6 @@ var model = Backbone.Model.extend({
   idAttribute: 'label'
 })
 
-var enclose = function (val) {
-  if (typeof val === 'string' && val != 'true' && val != 'false') { // eslint-disable-line
-    return "'" + val + "'"
-  } else if (val === null) {
-    return 'null'
-  } else {
-    return val
-  }
-}
 
 module.exports = Backbone.Collection.extend({
   model: model,
@@ -68,14 +59,23 @@ module.exports = Backbone.Collection.extend({
       return [
         field,
         expression.type,
-        '(' + expression.value.map(enclose).join(', ') + ')'
+        '(' + expression.value.map(this.enclose).join(', ') + ')'
       ].join(' ')
     } else {
       return [
         field,
         expression.type,
-        enclose(expression.value)
+        this.enclose(expression.value)
       ].join(' ')
+    }
+  },
+  enclose: function (val) {
+    if (typeof val === 'string' && val != 'true' && val != 'false') { // eslint-disable-line
+      return "'" + val + "'"
+    } else if (val === null) {
+      return 'null'
+    } else {
+      return val
     }
   },
   getDataset: function () {

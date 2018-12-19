@@ -138,5 +138,14 @@ module.exports = BaseProvider.extend({
         })
       })
     }
-  }
+  },
+  enclose: function (val) {
+    if (typeof val === 'string' && val != 'true' && val != 'false') { // eslint-disable-line
+      return "'" + val.replace("'", "''") + "'"
+    } else if (val === null) {
+      return 'null'
+    } else {
+      return val
+    }
+  },
 })
