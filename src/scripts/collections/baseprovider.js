@@ -9,7 +9,6 @@ var model = Backbone.Model.extend({
   idAttribute: 'label'
 })
 
-
 module.exports = Backbone.Collection.extend({
   model: model,
   initialize: function (models, options) {

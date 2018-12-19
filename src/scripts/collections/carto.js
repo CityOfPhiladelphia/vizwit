@@ -147,5 +147,5 @@ module.exports = BaseProvider.extend({
     } else {
       return val
     }
-  },
+  }
 })
