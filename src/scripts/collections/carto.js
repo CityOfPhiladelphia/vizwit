@@ -70,7 +70,7 @@ module.exports = BaseProvider.extend({
     if (this.config.limit) query.limit(this.config.limit)
 
     var output = 'https://' + this.config.domain +
-           '/api/v2/sql?q=' + query.toString()
+           '/api/v2/sql?q=' + encodeURIComponent(query.toString())
 
     return output
   },
