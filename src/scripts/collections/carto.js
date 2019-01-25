@@ -62,7 +62,7 @@ module.exports = BaseProvider.extend({
     // if (this.config.search) query.q(this.config.search)
     if (this.config.search) {
       var fullTextQuery = this.config.dataset + '::text ' +
-        "ILIKE '%25" + this.config.search + "%25'"
+        "ILIKE '%" + this.config.search + "%'"
       query.where(fullTextQuery)
     }
 
